@@ -1,0 +1,29 @@
+# vim: filetype=sh
+##############################################################################
+# Set Parameters	             					     					 #
+#                                                                            #
+#                                                                            #
+# by Luan Azevedo - Apr 2018                                                 #
+#                                                                            #
+##############################################################################                                                                            
+
+export ORACLE_BASE=/pd/oracle
+export ORACLE_HOME=$ORACLE_BASE/app/product/1120
+export ORACLE_SID=brerppd1
+export PATH=$ORACLE_HOME/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib64
+
+DATE=$(date +"%d%m%Y")
+
+#ORACLE Credentials
+
+SQLUSER="<user>"
+SQLPASS="<password>"
+SQLSERV="<database>"
+
+#SFTP Credentials
+
+sshpass="/usr/local/bin/sshpass"
+USERSFTP="<user>"
+PASSSFTP="<password>"
+SERVERSFTP="<sftp server>"

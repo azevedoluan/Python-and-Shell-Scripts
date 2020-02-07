@@ -1,0 +1,41 @@
+# vim: filetype=sh
+##############################################################################
+# Functions to remove_logs script                                            #
+#                                                                            #
+#                                                                            #
+# by Luan Azevedo - Sep 2017                                                 #
+#                                                                            #
+##############################################################################
+
+DATE=$(date +"%d%m%Y")
+
+#Move files
+
+move()
+{
+    for X in $(/bin/find *.log -mtime +30); do
+        mv "$X" logs_$DATE
+    done
+}
+
+
+#zip diretory
+
+zip_dir()
+{
+    zip -r logs_$DATE.zip logs_$DATE/
+}
+
+#remove directory
+
+remove()
+{
+    rm -fr logs_$DATE/
+}
+
+#create directory
+
+create_dir()
+{
+    mkdir logs_$DATE
+}

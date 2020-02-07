@@ -1,0 +1,65 @@
+# vim: filetype=sh
+
+GOT_FUNCTIONS="yes"
+LCK_DIR="/root/cron/check_email/tmp"
+LCK_FILE="${LCK_DIR}/${SCRIPT}.lck"
+#INCLUIDO NO CHAMADO 732062
+HNOW=$(date +%H%M)
+
+log()
+{
+ echo "[${SCRIPT}][`date`] - ${*}" >> ${LOG_FILE}
+}
+
+#ALTERADO NO CHAMADO 732062
+#Function to delete lock files that exists for more than 10 minutes
+check_lck()
+{
+   HFILE=$(date -r ${LCK_FILE} +%H%M)
+   HFILE=${HFILE#0}
+   HNOW=${HNOW#0}
+   HAUX=$((HNOW-HFILE))
+   if [ $((HAUX)) -ge 10 ]; then
+      rm -fr ${LCK_FILE}
+      echo "ALERTA - Processo python rodando a mais de 10 minutos" | mutt -s "Consulta Vendas - Python" -- <email.acount@email.com>
+      log Process running more than 10 minutes
+      echo "Process running more than 10 minutes"
+   fi 
+}
+#FIM DA ALTERACAO
+
+lock()
+{
+   if [ -e ${LCK_FILE} ]; then
+      log Script already running, ABORTED
+      echo "Script already runnig, ABORTED"
+      exit 97
+   else
+      touch ${LCK_FILE}
+   fi
+}
+
+terminate()
+{
+   rm ${LCK_FILE}
+   exit 0
+}
+
+terminate_error()
+{
+   log $1
+   rm ${LCK_FILE}
+   exit 47
+}
+
+
+execute()
+{
+ "$@"
+ local status=$?
+ if [ $status -ne 0 ]; then
+    log Error executing $1
+    terminate_error "Error executing $1"
+ fi
+ return $status
+}

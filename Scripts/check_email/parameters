@@ -1,0 +1,19 @@
+# vim: filetype=sh
+
+HOME=/root/cron/check_email
+ORACLE_BASE=/pd/oracle; export ORACLE_BASE
+ORACLE_HOME=$ORACLE_BASE/app/product/1120; export ORACLE_HOME
+ORACLE_SID=lafarge; export ORACLE_SID
+ORACLE_TERM=/usr1/bin/xterm; export ORACLE_TERM
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;
+export CLASSPATH
+
+DATE=$(date +"%Y%m%d%H%M")
+
+#Oracle credentials
+SQLUSER="<user>"
+SQLPASS="<password>"
+SQLSERV="<database>"
