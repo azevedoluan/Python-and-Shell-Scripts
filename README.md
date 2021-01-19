@@ -1,2 +1,2 @@
-# Python-and-Shell-Scripts
-Rotinas diversas em Shell Script e Python
+# Scripts
+Rotinas diversas construídas em Shell Script, Python, VBA e PL/SQL
